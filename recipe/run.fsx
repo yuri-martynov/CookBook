@@ -37,7 +37,7 @@ let answer (result: Result) : Async<string> =
     | "recipe" -> Recipe.get dish
     | "ingradients" -> Ingradients.get dish
     | "contains" -> Contains.get dish result.parameters.product
-    | "time" -> Contains.get dish
+    | "time" ->  Time.get dish
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
