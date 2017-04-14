@@ -35,7 +35,6 @@ let answer (result: Result) : Async<string> =
     match result.action with
     | "recipe" -> Recipe.get dish
     | "ingradients" -> Ingradients.get dish
-    | a -> failwith "unknown action " + a
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
