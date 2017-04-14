@@ -1,4 +1,4 @@
-#r "System.Net.Http"
+﻿#r "System.Net.Http"
 #r "Newtonsoft.Json"
 
 open System.Net
@@ -14,12 +14,12 @@ type Result = {
     parameters: Parameters
 }
 
-type Recipe = {
+type RecipeRequest = {
     result: Result
 }
 
-type Greeting = {
-    Greeting: string
+type RecipeResponse = {
+    displayText: string
 }
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
@@ -28,9 +28,9 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
         try
-            let recipe = JsonConvert.DeserializeObject<Recipe>(jsonContent)
+            let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                { Greeting = sprintf "Hello %s!" recipe.result.parameters.dish })
+                { displayText = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish })
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
