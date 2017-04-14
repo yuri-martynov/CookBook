@@ -18,6 +18,7 @@ type RecipeRequest = {
     result: Result
 }
 
+[<CLIMutable>]
 type RecipeResponse = {
     speech: string;
     displayText: string;
