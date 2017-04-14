@@ -5,9 +5,17 @@ open System.Net
 open System.Net.Http
 open Newtonsoft.Json
 
-type Name = {
-    First: string
-    Last: string
+type Parameters = {
+    dish: string
+}
+
+type Result = {
+    action: string;
+    parameters: Parameters
+}
+
+type Recipe = {
+    result: Result
 }
 
 type Greeting = {
@@ -20,9 +28,9 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
         try
-            let name = JsonConvert.DeserializeObject<Name>(jsonContent)
+            let recipe = JsonConvert.DeserializeObject<Recipe>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                { Greeting = sprintf "Hello %s %s!" name.First name.Last })
+                { Greeting = sprintf "Hello %s %s!" recipe.result.parameters.dish })
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
