@@ -29,11 +29,8 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         log.Info("Webhook was triggered!")
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
-        try
-            let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
-            let bodyObj = { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish }
-            let body = JsonConvert.SerializeObject(bodyObj)
-            return req.CreateResponse(HttpStatusCode.OK, body)
-        with _ ->
-            return req.CreateResponse(HttpStatusCode.BadRequest)
+        let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
+        let bodyObj = { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish }
+        let body = JsonConvert.SerializeObject(bodyObj)
+        return bodyObj
     } |> Async.StartAsTask
