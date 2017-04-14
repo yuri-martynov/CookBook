@@ -18,9 +18,11 @@ type RecipeRequest = {
     result: Result
 }
 
-[<CLIMutable>]
+[<DataContract>]
 type RecipeResponse = {
+    [<field: DataMember(Name="speech")>]
     speech: string;
+    [<field: DataMember(Name="displayText")>]
     displayText: string;
 }
 
@@ -29,8 +31,10 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         log.Info("Webhook was triggered!")
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
-        let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
-        let bodyObj = { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish }
-        let body = JsonConvert.SerializeObject(bodyObj)
-        return body
+        try
+            let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
+            return req.CreateResponse(HttpStatusCode.OK, 
+                { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish })
+        with _ ->
+            return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
