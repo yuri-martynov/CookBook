@@ -1,9 +1,11 @@
 ﻿#r "System.Net.Http"
 #r "Newtonsoft.Json"
+#r "System.Runtime.Serialization"
 
 open System.Net
 open System.Net.Http
 open Newtonsoft.Json
+open System.Runtime.Serialization
 
 type Parameters = {
     dish: string
@@ -18,11 +20,13 @@ type RecipeRequest = {
     result: Result
 }
 
-
-
-type RecipeResponse() =
-    member val speech = "" with get,set
-    member val displayText = "" with get,set
+[<DataContract>]
+type RecipeResponse = {
+    [<field: DataMember(Name="speech")>]
+    speech: string;
+    [<field: DataMember(Name="displayText")>]
+    displayText: string;
+}
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
@@ -32,7 +36,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                RecipeResponse (displayText = "From webhook", speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish ))
+                { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish })
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
