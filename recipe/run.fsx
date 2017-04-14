@@ -32,5 +32,5 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
         let bodyObj = { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish }
         let body = JsonConvert.SerializeObject(bodyObj)
-        return bodyObj
+        return body
     } |> Async.StartAsTask
