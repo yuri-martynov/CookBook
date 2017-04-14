@@ -32,7 +32,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                RecipeResponse (displayText = "From webhook", speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish )
+                RecipeResponse (displayText = "From webhook", speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish ))
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
