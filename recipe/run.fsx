@@ -29,6 +29,14 @@ type RecipeResponse = {
     displayText: string;
 }
 
+
+let answer (result: Result) : Async<string> =
+    let dish = result.parameters.dish
+    match result.action with
+    | "recipe" -> Recipe.get dish
+    | "ingradients" -> Ingradients.get dish
+    | a -> failwith "unknown action " + a
+
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
         log.Info("Webhook was triggered!")
@@ -36,8 +44,12 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
 
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
+            let! answer' =  answer recipe.result
             return req.CreateResponse(HttpStatusCode.OK, 
-                { displayText = "From webhook"; speech = Recipe.get recipe.result.parameters.dish })
+                { displayText = "From webhook"; speech = answer' })
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
+
     } |> Async.StartAsTask
+
+

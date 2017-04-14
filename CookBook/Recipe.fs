@@ -1,4 +1,5 @@
 ﻿module Recipe
 
-let get (dish: string) : string =
-    "Мы научим Вас готовить " + dish
+let get (dish: string) : Async<string> = async {
+    return "Мы научим Вас готовить " + dish
+}

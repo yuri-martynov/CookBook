@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Recipe.fs" />
+    <Compile Include="Ingradients.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
