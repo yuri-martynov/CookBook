@@ -55,6 +55,7 @@
     <Compile Include="Recipe.fs" />
     <Compile Include="Ingradients.fs" />
     <Compile Include="Contains.fs" />
+    <Compile Include="Time.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
