@@ -1,5 +1,4 @@
-
-bin
+CookBook/bin
 obj
 csx
 .vs
@@ -7,6 +6,7 @@ edge
 Publish
 .vscode
 
+*.xml
 *.user
 *.suo
 *.cscfg
