@@ -9,7 +9,8 @@ open Newtonsoft.Json
 open System.Runtime.Serialization
 
 type Parameters = {
-    dish: string
+    dish: string;
+    product: string
 }
 
 type Result = {
@@ -35,6 +36,7 @@ let answer (result: Result) : Async<string> =
     match result.action with
     | "recipe" -> Recipe.get dish
     | "ingradients" -> Ingradients.get dish
+    | "contains" -> Contains.get dish result.parameters.product
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
