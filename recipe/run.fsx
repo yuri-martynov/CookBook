@@ -18,25 +18,21 @@ type RecipeRequest = {
     result: Result
 }
 
-//[<DataContract>]
-type RecipeResponse = {
-    //[<field: DataMember(Name="speech")>]
-    speech: string;
-    //[<field: DataMember(Name="displayText")>]
-    displayText: string;
-}
+
+
+type RecipeResponse() =
+    member val speech = "" with get,set
+    member val displayText = "" with get,set
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
         log.Info("Webhook was triggered!")
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
-        GlobalConfiguration.Configuration.Formatters <- DefaultContractResolver()
-
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish })
+                RecipeResponse (displayText = "From webhook", speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish )
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
