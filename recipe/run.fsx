@@ -30,7 +30,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         try
             let recipe = JsonConvert.DeserializeObject<Recipe>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                { Greeting = sprintf "Hello %s %s!" recipe.result.parameters.dish })
+                { Greeting = sprintf "Hello %s!" recipe.result.parameters.dish })
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
