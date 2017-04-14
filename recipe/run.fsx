@@ -1,6 +1,7 @@
 ﻿#r "System.Net.Http"
 #r "Newtonsoft.Json"
 #r "System.Runtime.Serialization"
+#r "CookBook"
 
 open System.Net
 open System.Net.Http
@@ -36,7 +37,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
             return req.CreateResponse(HttpStatusCode.OK, 
-                { displayText = "From webhook"; speech = sprintf "Мы вас научим готовить %s!" recipe.result.parameters.dish })
+                { displayText = "From webhook"; speech = Recipe.get recipe.result.parameters.dish })
         with _ ->
             return req.CreateResponse(HttpStatusCode.BadRequest)
     } |> Async.StartAsTask
