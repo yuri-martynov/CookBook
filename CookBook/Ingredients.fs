@@ -6,8 +6,8 @@ let get id : Async<string> =
         product.Value + " "  + product.Quantity
         
 
-    let dish = Data.get id
     async {
+        let! dish = Data.get id
         return dish.Ingredients.Products 
             |> Seq.map mapProduct
             |> fun products -> System.String.Join("<br/>", products)
