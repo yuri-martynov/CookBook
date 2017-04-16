@@ -53,16 +53,16 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
         let files = System.IO.Directory.EnumerateFiles(folder)
         return req.CreateResponse(HttpStatusCode.OK, files)
 
-        log.Info("Webhook was triggered!")
-        let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
+        //log.Info("Webhook was triggered!")
+        //let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
-        try
-            let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
-            let! answer' =  answer recipe.result
-            return req.CreateResponse(HttpStatusCode.OK, 
-                { displayText = "From webhook"; speech = answer' })
-        with _ ->
-            return req.CreateResponse(HttpStatusCode.BadRequest)
+        //try
+        //    let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
+        //    let! answer' =  answer recipe.result
+        //    return req.CreateResponse(HttpStatusCode.OK, 
+        //        { displayText = "From webhook"; speech = answer' })
+        //with _ ->
+        //    return req.CreateResponse(HttpStatusCode.BadRequest)
 
     } |> Async.StartAsTask
 
