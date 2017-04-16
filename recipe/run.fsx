@@ -42,7 +42,7 @@ let answer (result: Result) : Async<string> =
     let dish = result.parameters.dish
     match result.action with
     | "recipe" -> Recipe.get dish
-    | "ingradients" -> Ingradients.get dish
+    | "ingredients" -> Ingredients.get dish
     | "contains" -> Contains.get dish result.parameters.product
     | "time" ->  Time.get dish // ????
 

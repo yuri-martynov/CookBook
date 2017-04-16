@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Data.fs" />
-    <Compile Include="Ingradients.fs" />
+    <Compile Include="Ingredients.fs" />
     <Compile Include="Contains.fs" />
     <Compile Include="Time.fs" />
     <Compile Include="Recipe.fs" />
