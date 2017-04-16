@@ -24,9 +24,10 @@ let ingredient (x: Ingredient) =
 let duration (x: TimeSpan) =
     match x.TotalMinutes with
     | 30.0 -> "полчаса"
-    | 60.0 -> "около часа"
-    | m when m < 1.0 -> x.TotalSeconds |> dimension ("полсекунды", "секунду", "секунды", "секунд")
-    | x -> x |> dimension ("полминуты", "минуту","минуты","минут")
+    | 60.0 -> "1 час"
+    | m when m < 1.0 -> x.TotalSeconds |> dimension ("секунды", "секунду", "секунды", "секунд")
+    | m when m >= 120.0 -> x.TotalHours |> dimension ("часа", "час", "часа", "часов")
+    | x -> x |> dimension ("минуты", "минуту","минуты","минут")
     
 
 
