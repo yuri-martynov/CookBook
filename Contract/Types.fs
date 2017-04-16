@@ -4,8 +4,8 @@ open System
 
 type Quantity =
     | Items of float
-    | Kg of float
-    | Lt of float
+    | Gramm of float
+    | Liters of float
     | Spoons of float
 
 type Product =
