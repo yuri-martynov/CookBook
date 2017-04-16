@@ -19,7 +19,7 @@ open System
 
 type Parameters = {
     dish: string;
-    product: string list
+    product: List<string>
 }
 
 type Result = {
