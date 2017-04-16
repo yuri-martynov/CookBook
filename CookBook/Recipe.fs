@@ -1,5 +1,10 @@
 ﻿module Recipe
 
+open DataAccess
+
+let private dataAccess = DishDataAccess()
+
 let get (dish: string) : Async<string> = async {
-    return "Мы научим Вас готовить " + dish
+    let dish = dataAccess.Get dish
+    return dish.Recipe
 }
