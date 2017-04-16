@@ -1,13 +1,10 @@
 ﻿module Data
 
 open FSharp.Data
-open DataAccess
 
 
-type DishXml = XmlProvider<"../DataAccess/борщ.xml">
-
-let private dataAccess = FilesDataAccess()
+type DishXml = XmlProvider<"../recipe/Db/борщ.xml">
 
 let get id : DishXml.Dish =
-    let str = dataAccess.Get id
+    let str = System.IO.File.ReadAllText """D:\home\site\wwwroot\recipe\db\""" + id + ".xml"
     DishXml.Parse str

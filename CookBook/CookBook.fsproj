@@ -74,11 +74,6 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Name>DataAccess</Name>
-      <Project>{fc687479-7b5b-4357-a310-2439d91a2166}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
