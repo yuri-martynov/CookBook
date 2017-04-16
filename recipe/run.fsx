@@ -58,7 +58,8 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
             let! answer' =  answer recipe.result
             return req.CreateResponse(HttpStatusCode.OK, 
                 { displayText = "From webhook"; speech = answer' })
-        with _ ->
+        with e ->
+            log.Info(e.ToString())
             return req.CreateResponse(HttpStatusCode.BadRequest)
 
     } |> Async.StartAsTask
