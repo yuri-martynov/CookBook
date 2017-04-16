@@ -2,6 +2,8 @@
 #r "Newtonsoft.Json"
 #r "System.Runtime.Serialization"
 #r "CookBook"
+#r "Contract"
+#r "Data"
 
 //#if !COMPILED
 //#I "../../bin/Binaries/WebJobs.Script.Host"
@@ -37,14 +39,17 @@ type RecipeResponse = {
     displayText: string;
 }
 
+let private getDishById =
+    DishDataAccess.getById
 
-let answer (result: Result) : Async<string> =
+
+let private answer (result: Result) : Async<string> =
     let dish = result.parameters.dish
     match result.action with
-    | "recipe" -> Recipe.get dish
-    | "ingredients" -> Ingredients.get dish
-    | "contains" -> Contains.get dish result.parameters.product
-    | "time" ->  Time.get dish // ????
+    | "recipe" -> Recipe.get getDishById dish
+    | "ingredients" -> Ingredients.get getDishById dish
+    | "contains" -> Contains.get getDishById dish result.parameters.product
+    | "time" ->  Time.get getDishById dish // ????
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {

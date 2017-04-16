@@ -1,14 +1,17 @@
 ﻿module Ingredients
 
-let get id : Async<string> = 
+open Types
+open Functions
+
+let get (getDishById: getDishById) id : Async<string> = 
     
-    let mapProduct (product : Data.DishXml.Product) =
-        product.Value + " "  + product.Quantity
+    let mapProduct (product : Product) =
+        product.name + " "  + product.quantity.ToString()
         
 
     async {
-        let! dish = Data.get id
-        return dish.Ingredients.Products 
+        let! dish = getDishById id
+        return dish.ingredients 
             |> Seq.map mapProduct
             |> fun products -> System.String.Join("<br/>", products)
     }

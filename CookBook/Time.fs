@@ -1,7 +1,10 @@
 ﻿module Time
 
-let get dishId : Async<string> = async {
-    let! dish = Data.get dishId
-    return dish.Time.Value.ToString()
+open Types
+open Functions
+
+let get (getDishById: getDishById) dishId : Async<string> = async {
+    let! dish = getDishById dishId
+    return dish.time.ToString()
 }
 

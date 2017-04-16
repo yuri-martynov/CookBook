@@ -1,10 +1,13 @@
 ﻿module Contains
 
-let get dishId (product: string) = async {
-    let! dish = Data.get dishId
+open Functions
+open Types
+
+let get (getDishById: getDishById) dishId (product: string) = async {
+    let! dish = getDishById dishId
     let contains = 
-        dish.Ingredients.Products 
-        |> Seq.exists (fun p -> p.Value = product )
+        dish.ingredients
+        |> Seq.exists (fun p -> p.name = product )
 
     if contains then
         return "Да"
