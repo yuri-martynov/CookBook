@@ -11,7 +11,9 @@ let findByIngredients
         let! dishIds = getDishesByIngredients products
         let id = dishIds |> Seq.tryHead
         match id with
-        |Some id -> return! Ingredients.get getDishById id
+        |Some id -> 
+            let! dish = getDishById id
+            return dish.name
         |None -> return "нет("
     }
     

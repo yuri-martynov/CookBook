@@ -45,12 +45,13 @@ let private getDishesByIngredients products = async { return DishDataAccess.getB
 
 let private answer (result: Result) : Async<string> =
     let dish = result.parameters.dish
+    let product = result.parameters.product
     match result.action with
     | "recipe" -> Recipe.get getDishById dish
     | "ingredients" -> Ingredients.get getDishById dish
-    | "contains" -> Contains.get getDishById dish result.parameters.product
+    | "contains" -> Contains.get getDishById dish product
     | "time" ->  Time.get getDishById dish // ????
-    | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById [result.parameters.product]
+    | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById [product]
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
