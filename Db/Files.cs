@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Db.Properties;
+﻿using Db.Properties;
 
 namespace Db
 {
