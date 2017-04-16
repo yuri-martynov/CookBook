@@ -8,7 +8,7 @@ let get (getDishById: getDishById) id : Async<string> =
     async {
         let! dish = getDishById id
         return dish.ingredients 
-            |> Seq.map Format.entity
+            |> Seq.map Format.product
             |> Format.list "<br/>"
     }
 
