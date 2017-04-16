@@ -19,7 +19,7 @@ open System
 
 type Parameters = {
     dish: string;
-    product: string
+    product: string list
 }
 
 type Result = {
@@ -45,13 +45,13 @@ let private getDishesByIngredients products = async { return DishDataAccess.getB
 
 let private answer (result: Result) : Async<string> =
     let dish = result.parameters.dish
-    let product = result.parameters.product
+    let products = result.parameters.product
     match result.action with
     | "recipe" -> Recipe.get getDishById dish
     | "ingredients" -> Ingredients.get getDishById dish
-    | "contains" -> Contains.get getDishById dish product
+    | "contains" -> Contains.get getDishById dish (product |> Seq.head) 
     | "time" ->  Time.get getDishById dish // ????
-    | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById [product]
+    | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById products
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
