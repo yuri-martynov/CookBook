@@ -48,6 +48,11 @@ let answer (result: Result) : Async<string> =
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
+
+        let folder = Environment.ExpandEnvironmentVariables(@"%HOME%")
+        let files = System.IO.Directory.EnumerateFiles(folder)
+        return req.CreateResponse(HttpStatusCode.OK, files)
+
         log.Info("Webhook was triggered!")
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
