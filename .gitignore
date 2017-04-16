@@ -6,7 +6,7 @@ edge
 Publish
 .vscode
 
-*.xml
+**/bin/*.xml
 *.user
 *.suo
 *.cscfg
