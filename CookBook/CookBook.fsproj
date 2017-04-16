@@ -52,12 +52,17 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="DishXmlProvider.fs" />
     <Compile Include="Recipe.fs" />
     <Compile Include="Ingradients.fs" />
     <Compile Include="Contains.fs" />
     <Compile Include="Time.fs" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Data">
+      <HintPath>..\packages\FSharp.Data.2.3.3\lib\net40\FSharp.Data.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core">
       <Name>FSharp.Core</Name>
@@ -67,8 +72,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Name>DataAccess</Name>
       <Project>{fc687479-7b5b-4357-a310-2439d91a2166}</Project>

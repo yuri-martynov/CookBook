@@ -1,13 +1,11 @@
-﻿namespace DataAccess
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccess
 {
     public interface IDishDataAccess
     {
-        IDish Get(string id);
+        string Get(string id);
     }
 
-    public interface IDish
-    {
-        string Title { get; }
-        string Recipe { get; }
-    }
 }
