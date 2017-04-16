@@ -1,6 +1,7 @@
 ﻿module Time
 
-let get dish = async {
-    return "Для проготовления " + dish + " Вам хватит 10 минут"
+let get dishId : Async<string> = async {
+    let! dish = Data.get dishId
+    return dish.Time.Value.ToString()
 }
 
