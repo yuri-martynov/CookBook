@@ -16,6 +16,7 @@ let quantity (x : Quantity) =
     |TableSpoons x -> x |> dimension (" столовой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
     |Liters x -> x |> dimension ("-литра","литр","литра","литров")
     |Grams x -> float x |> dimension ("грамма", "грамм","грамма","граммов")
+    |ToTaste -> "по вкусу"
 
 let ingredient (x: Ingredient) =
     sprintf "%s - %s" x.product.name (quantity x.quantity)

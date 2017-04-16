@@ -7,6 +7,7 @@ type Quantity =
     | Grams of int
     | Liters of float
     | TableSpoons of float
+    | ToTaste
     
 
 type Product =
