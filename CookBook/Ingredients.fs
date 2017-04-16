@@ -2,17 +2,14 @@
 
 open Types
 open Functions
+open Format
 
 let get (getDishById: getDishById) id : Async<string> = 
     
-    let mapProduct (product : Product) =
-        product.name + " "  + product.quantity.ToString()
-        
-
     async {
         let! dish = getDishById id
         return dish.ingredients 
-            |> Seq.map mapProduct
+            |> Seq.map format
             |> fun products -> System.String.Join("<br/>", products)
     }
 
