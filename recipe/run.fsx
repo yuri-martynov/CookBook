@@ -2,7 +2,6 @@
 #r "Newtonsoft.Json"
 #r "System.Runtime.Serialization"
 #r "CookBook"
-#r "Db"
 
 //#if !COMPILED
 //#I "../../bin/Binaries/WebJobs.Script.Host"
