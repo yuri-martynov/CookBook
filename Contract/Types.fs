@@ -4,7 +4,7 @@ open System
 
 type Quantity =
     | Items of float
-    | Grams of float
+    | Grams of int
     | Liters of float
     | TableSpoons of float
     
