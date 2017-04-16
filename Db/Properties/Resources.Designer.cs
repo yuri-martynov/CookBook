@@ -76,9 +76,9 @@ namespace Db.Properties {
         ///&lt;/dish&gt;
         ///.
         /// </summary>
-        internal static string Борщ {
+        internal static string борщ {
             get {
-                return ResourceManager.GetString("Борщ", resourceCulture);
+                return ResourceManager.GetString("борщ", resourceCulture);
             }
         }
     }
