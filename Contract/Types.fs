@@ -19,11 +19,22 @@ type Ingredient =
     ; quantity: Quantity
     }
 
+type Step =
+    { duration: TimeSpan
+    ; description: string
+    }
+
+type Recipe =
+    { steps: Step seq
+    }
+
 type Dish = 
     { name: string
-    ; time: TimeSpan
     ; ingredients: Ingredient seq
-    ; recipe: string
+    ; recipe: Recipe
     }
+
+
+
 
 
