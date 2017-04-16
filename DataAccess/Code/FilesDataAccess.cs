@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataAccess
 {
-    public sealed class DishDataAccess : IDishDataAccess
+    public sealed class FilesDataAccess : IFilesDataAccess
     {
         public string Get(string id)
         {

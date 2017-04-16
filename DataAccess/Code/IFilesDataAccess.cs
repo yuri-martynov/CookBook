@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess
 {
-    public interface IDishDataAccess
+    public interface IFilesDataAccess
     {
         string Get(string id);
     }

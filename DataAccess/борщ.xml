@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <dish title="Борщ">
+  <ingredients>
+    <product quantity="1 столовая ложка">соль</product>
+    <product quantity="0.5 кг">мясо</product>
+    <product quantity="1 л">вода</product>
+    <product quantity="2 шт">яйцо</product>
+  </ingredients>
+  <time value="01:00"></time>
   <recipe>
     <h1>рецепт простой</h1>
   </recipe>

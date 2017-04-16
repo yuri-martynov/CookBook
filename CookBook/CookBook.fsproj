@@ -52,11 +52,11 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="DishXmlProvider.fs" />
-    <Compile Include="Recipe.fs" />
+    <Compile Include="Data.fs" />
     <Compile Include="Ingradients.fs" />
     <Compile Include="Contains.fs" />
     <Compile Include="Time.fs" />
+    <Compile Include="Recipe.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
