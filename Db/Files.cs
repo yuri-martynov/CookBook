@@ -5,6 +5,6 @@ namespace Db
 {
     public static class Files
     {
-        public static Stream getStream(string id) => Resources.ResourceManager.GetStream(id);
+        public static string get(string id) => Resources.ResourceManager.GetString(id);
     }
 }
