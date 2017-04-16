@@ -39,9 +39,8 @@ type RecipeResponse = {
     displayText: string;
 }
 
-let private getDishById id = async {
-    return DishDataAccess.getById id
-}
+let private getDishById id = async { return DishDataAccess.getById id }
+let private getDishesByIngredients products = async { return DishDataAccess.getByIngredients products }
 
 
 let private answer (result: Result) : Async<string> =
@@ -51,6 +50,7 @@ let private answer (result: Result) : Async<string> =
     | "ingredients" -> Ingredients.get getDishById dish
     | "contains" -> Contains.get getDishById dish result.parameters.product
     | "time" ->  Time.get getDishById dish // ????
+    | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById [result.parameters.product]
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {

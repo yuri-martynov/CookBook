@@ -57,6 +57,7 @@
     <Compile Include="Contains.fs" />
     <Compile Include="Time.fs" />
     <Compile Include="Recipe.fs" />
+    <Compile Include="Dish.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
