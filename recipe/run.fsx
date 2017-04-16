@@ -49,7 +49,7 @@ let private answer (result: Result) : Async<string> =
     match result.action with
     | "recipe" -> Recipe.get getDishById dish
     | "ingredients" -> Ingredients.get getDishById dish
-    | "contains" -> Contains.get getDishById dish (products |> Seq.head) 
+    | "contains" -> Contains.get getDishById dish products
     | "time" ->  Time.get getDishById dish // ????
     | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById products
 

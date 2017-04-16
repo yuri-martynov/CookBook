@@ -3,15 +3,22 @@
 open Functions
 open Types
 
-let get (getDishById: getDishById) dishId (product: string) = async {
+let get (getDishById: getDishById) dishId (products: seq<string>) = async {
     let! dish = getDishById dishId
-    let contains = 
+    let ingredients = 
         dish.ingredients
-        |> Seq.exists (fun p -> p.product.name = product )
+        |> Seq.filter (fun p -> products |> Seq.contains p.product.name )
+        |> Seq.toList
 
-    if contains then
-        return "Да"
-    else
-        return "Нет"
+    match ingredients with
+    | [] -> 
+        return "нет там такого"
+
+    | _ -> 
+        return 
+            ingredients 
+            |> Seq.map Format.ingredient 
+            |> Format.list "<br/>"
+    
 }
 

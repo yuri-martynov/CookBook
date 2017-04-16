@@ -7,6 +7,7 @@ type Quantity =
     | Grams of float
     | Liters of float
     | TableSpoons of float
+    
 
 type Product =
     { name: string
