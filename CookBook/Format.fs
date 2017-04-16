@@ -9,8 +9,8 @@ let quantity (x : Quantity) =
         match x with
         |0.5 -> "1/2 " + half
         |1.0 -> "1 " + one
-        |s when s > 1.0 && s < 5.0 -> s.ToString() + " " + two
-        |s -> s.ToString() + " " + five
+        |s when s > 1.0 && s < 5.0 -> sprintf "%f %s " s two
+        |s -> sprintf "%f %s " s five
 
 
     match x with
@@ -18,7 +18,6 @@ let quantity (x : Quantity) =
     |Spoons x -> x |> dimension ("столовой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
     |Liters x -> x |> dimension ("литра","литр","литра","литров")
     |Gramm x -> x |> dimension ("грамма", "грамм","грамма","граммов")
-    |x -> x.ToString()
 
 let product (x: Product) =
     sprintf "%s - %s" x.name (quantity x.quantity)
