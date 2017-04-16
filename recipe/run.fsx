@@ -39,8 +39,9 @@ type RecipeResponse = {
     displayText: string;
 }
 
-let private getDishById =
-    DishDataAccess.getById
+let private getDishById id = async {
+    return DishDataAccess.getById id
+}
 
 
 let private answer (result: Result) : Async<string> =
