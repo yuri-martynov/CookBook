@@ -15,12 +15,12 @@ let quantity (x : Quantity) =
 
     match x with
     |Items x -> x |> dimension ("штуки" ,"штука", "штуки" ,"штук")
-    |Spoons x -> x |> dimension ("столовой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
+    |TableSpoons x -> x |> dimension ("столовой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
     |Liters x -> x |> dimension ("литра","литр","литра","литров")
-    |Gramm x -> x |> dimension ("грамма", "грамм","грамма","граммов")
+    |Grams x -> x |> dimension ("грамма", "грамм","грамма","граммов")
 
-let product (x: Product) =
-    sprintf "%s - %s" x.name (quantity x.quantity)
+let ingredient (x: Ingredient) =
+    sprintf "%s - %s" x.product.name (quantity x.quantity)
 
 
 let list (separator: string) (lst: seq<_>) : string =

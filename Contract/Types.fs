@@ -4,19 +4,23 @@ open System
 
 type Quantity =
     | Items of float
-    | Gramm of float
+    | Grams of float
     | Liters of float
-    | Spoons of float
+    | TableSpoons of float
 
 type Product =
     { name: string
+    }
+
+type Ingredient =
+    { product: Product
     ; quantity: Quantity
     }
 
 type Dish = 
     { name: string
     ; time: TimeSpan
-    ; ingredients: Product list
+    ; ingredients: Ingredient seq
     ; recipe: string
     }
 
