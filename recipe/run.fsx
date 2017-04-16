@@ -3,10 +3,17 @@
 #r "System.Runtime.Serialization"
 #r "CookBook"
 
+//#if !COMPILED
+//#I "../../bin/Binaries/WebJobs.Script.Host"
+//#r "Microsoft.Azure.WebJobs.Host.dll"
+//#endif
+
 open System.Net
 open System.Net.Http
 open Newtonsoft.Json
 open System.Runtime.Serialization
+open System
+//open Microsoft.Azure.WebJobs.Host
 
 type Parameters = {
     dish: string;
