@@ -1,8 +1,10 @@
 ﻿module Format
 
+open System.Collections
 open Types
 
-let format (x: obj) =
+
+let entity (x: obj) : string =
 
     let quantity (x : Quantity) =
         match x with
@@ -16,3 +18,8 @@ let format (x: obj) =
     | :? Product as x -> product x
     | :? Quantity as x -> quantity x
     |_ -> x.ToString()
+
+let list (separator: string) (lst: IEnumerable) : string =
+    System.String.Join(separator, lst)
+    
+    
