@@ -19,6 +19,7 @@ open System
 
 type Parameters = {
     dish: string;
+    dishes: List<string>;
     product: List<string>
 }
 
@@ -52,6 +53,7 @@ let private answer (result: Result) : Async<string> =
     | "contains" -> Contains.get getDishById dish products
     | "time" ->  Time.get getDishById dish // ????
     | "dish" -> Dish.findByIngredients getDishesByIngredients getDishById products
+    | "compare_time" -> CompareTime.get getDishById result.parameters.dishes
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
