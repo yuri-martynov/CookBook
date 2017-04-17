@@ -6,13 +6,14 @@ type Quantity =
     | Items of float
     | Grams of int
     | Liters of float
+    | Glasses of float
     | TableSpoons of float
     | ToTaste
     
 
 type Product =
-    { name: string
-    }
+    | Whole of string
+    | Part of (Product * string)
 
 type ProductQuantity =
     { product: Product
@@ -26,11 +27,16 @@ type Ingredient =
     | And of Ingredient seq
 
 
+type Action =
+    | Cook of string
+    | Background of string
 
 type Step =
     { duration: TimeSpan
-    ; description: string
+    ; action: Action
     }
+
+
 
 type Recipe =
     { steps: Step seq

@@ -21,7 +21,7 @@ let get (getDishById: getDishById) (dishIds: seq<string>) : Async<string> = asyn
     let div = times |> Seq.map (fun t -> Math.Abs(t-avg)) |> Seq.max
     
     if div < avg * 0.2 then
-        return "примерно одинакого в среднем: " + ((TimeSpan.FromMinutes avg) |> Format.duration)
+        return "примерно одинакого, в среднем: " + ((TimeSpan.FromMinutes avg) |> Format.duration)
     else
         let format ((d,t) : (Dish*TimeSpan)) =
             d.name + " - " + (Format.duration t)

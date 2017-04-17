@@ -5,7 +5,7 @@
 #r "Contract"
 #r "Data"
 
-//#if !COMPILED
+//#if ++COMPILED
 //#I "../../bin/Binaries/WebJobs.Script.Host"
 //#r "Microsoft.Azure.WebJobs.Host.dll"
 //#endif
@@ -59,7 +59,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
 
 
-        log.Info("Webhook was triggered!")
+        log.Info("Webhook was triggered++")
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
 
         try

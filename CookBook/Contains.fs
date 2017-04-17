@@ -3,7 +3,12 @@
 open Types
 
 let private extractNames : (Ingredient -> seq<string>) =
-    Utils.products >> Seq.map (fun pq -> pq.product.name)
+    let rec name product =
+        match product with
+        |Whole p -> p
+        |Part (p,_) -> name p
+
+    Utils.products >> Seq.map (fun pq -> pq.product |> name)
 
 let get (getDishById: getDishById) dishId (productNames: seq<string>) = async {
     let! dish = getDishById dishId

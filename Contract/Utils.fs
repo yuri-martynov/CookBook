@@ -10,3 +10,8 @@ let rec products (ingredient: Ingredient) : ProductQuantity seq =
         ps 
         |> Seq.map products 
         |> Seq.concat
+
+let rec productName product =
+    match product with
+    |Whole p -> p
+    |Part (p,_) -> productName p

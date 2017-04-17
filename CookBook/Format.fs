@@ -17,6 +17,7 @@ let private grams = dimension ("грамма", "грамм","грамма","гр
 let private seconds = dimension ("секунды", "секунду", "секунды", "секунд")
 let private hours = dimension ("часа", "час", "часа", "часов")
 let private minutes = dimension ("минуты", "минуту","минуты","минут")
+let private glasses = dimension ("стакана", "стакан","стакана","стаканов")
 
 let list (separator: string) (lst: seq<_>) : string =
     System.String.Join(separator, lst)
@@ -27,11 +28,17 @@ let quantity (x : Quantity) =
     |TableSpoons x -> x |> tableSpoons
     |Liters x -> x |> liters
     |Grams x -> float x |> grams
+    |Glasses x -> x |> glasses
     |ToTaste -> "по вкусу"
+
+let rec private product (x: Product) : string =
+    match x with
+    |Whole p -> p
+    |Part (p, part) -> sprintf "%s (%s)" (product p) part
 
 
 let private productQuantity (x : ProductQuantity) =
-    sprintf "%s - %s" x.product.name (quantity x.quantity)
+    sprintf "%s - %s" (product (x.product))  (quantity x.quantity)
 
 let ingredient (x: Ingredient) =
     match x with
@@ -50,9 +57,14 @@ let duration (x: TimeSpan) =
     | m when m >= 120.0 -> x.TotalHours |> hours
     | x -> x |> minutes
     
+let private action (x: Action) =
+    match x with
+    |Cook s 
+    |Background s ->
+        s
 
 let step (x: Step) =
-    x.description + " - " + (x.duration |> duration)
+    (x.action |> action) + " - " + (x.duration |> duration)
 
 
 
