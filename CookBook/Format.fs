@@ -41,11 +41,12 @@ let private productQuantity (x : ProductQuantity) =
     sprintf "%s - %s" (product (x.product))  (quantity x.quantity)
 
 let ingredient (x: Ingredient) =
+    let many = Seq.map Utils.products >> Seq.concat >> Seq.map productQuantity
     match x with
     |Only x -> productQuantity x
     |Optional x -> "можно добавить " + productQuantity x
-    |Xor xs -> xs |> Seq.map Utils.products |>Seq.concat |> Seq.map productQuantity |> list " либо "
-    |And xs -> xs |> Seq.map Utils.products |>Seq.concat |> Seq.map productQuantity |> list "<br/>"
+    |Xor xs -> xs |> many |> list " либо "
+    |And xs -> xs |> many |> list "<br/>"
 
 
 
