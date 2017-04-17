@@ -1,7 +1,6 @@
 ﻿module Dish
 
 open Types
-open Functions
 
 let findByIngredients 
     (getDishesByIngredients : getDishesByIngredients) 

@@ -1,13 +1,15 @@
 ﻿module Contains
 
-open Functions
 open Types
 
-let get (getDishById: getDishById) dishId (products: seq<string>) = async {
+let private extractNames : (Ingredient -> seq<string>) =
+    Utils.products >> Seq.map (fun pq -> pq.product.name)
+
+let get (getDishById: getDishById) dishId (productNames: seq<string>) = async {
     let! dish = getDishById dishId
     let ingredients = 
         dish.ingredients
-        |> Seq.filter (fun p -> products |> Seq.contains p.product.name )
+        |> Seq.filter (fun i -> productNames |> Seq.exists (fun name -> i |> extractNames |> Seq.contains name ))
         |> Seq.toList
 
     match ingredients with

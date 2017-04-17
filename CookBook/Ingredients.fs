@@ -1,7 +1,6 @@
 ﻿module Ingredients
 
 open Types
-open Functions
 
 let get (getDishById: getDishById) id : Async<string> = 
     

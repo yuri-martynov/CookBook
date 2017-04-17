@@ -18,6 +18,9 @@ let private seconds = dimension ("секунды", "секунду", "секун
 let private hours = dimension ("часа", "час", "часа", "часов")
 let private minutes = dimension ("минуты", "минуту","минуты","минут")
 
+let list (separator: string) (lst: seq<_>) : string =
+    System.String.Join(separator, lst)
+
 let quantity (x : Quantity) =
     match x with
     |Items x -> x |> items
@@ -26,8 +29,17 @@ let quantity (x : Quantity) =
     |Grams x -> float x |> grams
     |ToTaste -> "по вкусу"
 
-let ingredient (x: Ingredient) =
+
+let private productQuantity (x : ProductQuantity) =
     sprintf "%s - %s" x.product.name (quantity x.quantity)
+
+let ingredient (x: Ingredient) =
+    match x with
+    |Only x -> productQuantity x
+    |Optional x -> "можно добавить " + productQuantity x
+    |Xor xs -> xs |> Seq.map Utils.products |>Seq.concat |> Seq.map productQuantity |> list " либо "
+    |And xs -> xs |> Seq.map Utils.products |>Seq.concat |> Seq.map productQuantity |> list "<br/>"
+
 
 
 let duration (x: TimeSpan) =
@@ -43,7 +55,6 @@ let step (x: Step) =
     x.description + " - " + (x.duration |> duration)
 
 
-let list (separator: string) (lst: seq<_>) : string =
-    System.String.Join(separator, lst)
+
     
     

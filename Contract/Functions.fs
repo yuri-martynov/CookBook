@@ -1,6 +1,4 @@
-﻿module Functions
-
-open Types
+﻿namespace Types
 
 type getDishById = string -> Async<Dish>
 
