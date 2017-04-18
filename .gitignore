@@ -1,4 +1,6 @@
 CookBook/bin
+Data/bin
+Contract/bin
 obj
 csx
 .vs
@@ -19,7 +21,6 @@ project.lock.json
 /tools/NuGet.exe
 /App_Data
 /secrets
-/data
 .secrets
 appsettings.json
 **/bin/Debug
