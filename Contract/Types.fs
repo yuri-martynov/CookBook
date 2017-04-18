@@ -7,6 +7,7 @@ type Quantity =
     | Grams of int
     | Liters of float
     | Glasses of float
+    | TeaSpoons of float
     | TableSpoons of float
     | ToTaste
     
@@ -27,16 +28,12 @@ type Ingredient =
     | And of Ingredient seq
 
 
-type Action =
-    | Cook of string
-    | Background of string
 
 type Step =
     { duration: TimeSpan
-    ; action: Action
+    ; description: string
+    ; ingredients: Ingredient seq
     }
-
-
 
 type Recipe =
     { steps: Step seq
@@ -44,6 +41,5 @@ type Recipe =
 
 type Dish = 
     { name: string
-    ; ingredients: Ingredient seq
     ; recipe: Recipe
     }

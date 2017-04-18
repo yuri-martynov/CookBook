@@ -58,14 +58,10 @@ let duration (x: TimeSpan) =
     | m when m >= 120.0 -> x.TotalHours |> hours
     | x -> x |> minutes
     
-let private action (x: Action) =
-    match x with
-    |Cook s 
-    |Background s ->
-        s
+
 
 let step (x: Step) =
-    (x.action |> action) + " - " + (x.duration |> duration)
+    x.description + " - " + (x.duration |> duration)
 
 
 

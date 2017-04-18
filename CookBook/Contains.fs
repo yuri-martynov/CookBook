@@ -9,7 +9,8 @@ let private extractNames : (Ingredient -> seq<string>) =
 let get (getDishById: getDishById) dishId (productNames: seq<string>) = async {
     let! dish = getDishById dishId
     let ingredients = 
-        dish.ingredients
+        dish.recipe.steps
+        |> Seq.collect (fun s -> s.ingredients)
         |> Seq.filter (fun i -> productNames |> Seq.exists (fun name -> i |> extractNames |> Seq.contains name ))
         |> Seq.toList
 

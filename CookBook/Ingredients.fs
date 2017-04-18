@@ -6,7 +6,8 @@ let get (getDishById: getDishById) id : Async<string> =
     
     async {
         let! dish = getDishById id
-        return dish.ingredients 
+        return dish.recipe.steps
+            |> Seq.collect (fun s -> s.ingredients) 
             |> Seq.map Format.ingredient
             |> Format.list "<br/>"
     }
