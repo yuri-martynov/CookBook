@@ -13,7 +13,7 @@ let private (-@) sequence item =
 let private lastStep dish =
     dish.recipe.steps |> Seq.last
     
-let private replaceLastStep step dish  =
+let private updateStep step dish  =
     { dish with recipe = { dish.recipe with steps = dish.recipe.steps -@ step } }
     
 // Utils
@@ -50,9 +50,11 @@ type QuantityUnit =
     | TableSpoon
     | Taste
     
+let [kg; кг] = Kg |> List.replicate 2
+let [gram; г] = Gram |> List.replicate 2
 let [liter; liters; литр; литра; литров] = Liter |> List.replicate 5
 let [table_spoon; table_spoons; столовой_ложки; столовая_ложка; столовые_ложки; столовых_ложек] = Liter |> List.replicate 6
-let [item; items; штука; штуки; штук] = Liter |> List.replicate 5
+let [item; items; шт] = Liter |> List.replicate 3
 
 let private toQuantity value unit : Quantity =
     match unit with
@@ -65,9 +67,46 @@ let private toQuantity value unit : Quantity =
     | TableSpoon -> TableSpoons (toType<float> value)
     | Taste -> ToTaste
 
-// Builder --------------------------
+// Step Builder --------------------------
+
+type StepBuilder() =
+
+    member __.Yield(()) : Step =
+        { description = null
+        ; duration = TimeSpan.Zero
+        ; workTime = TimeSpan.FromSeconds 15.0
+        ; ingredients = Seq.empty
+        }
+        
+    [<CustomOperation("step")>]
+    member __.Step (step, description) =
+        { step with description = description }
+
+    [<CustomOperation("time")>]
+    member __.Time (step, time, unit) =
+        { step with duration = toTime time unit }
+        
+    [<CustomOperation("work_time")>]
+    member __.WorkTime (step, time, unit) =
+        { step with workTime = toTime time unit }
+        
+    [<CustomOperation("ingredient")>]
+    member __.Ingredient (step, product, quantity, unit) =
+        let ingredient = Only {product = Whole product; quantity = toQuantity quantity unit}
+        { step with ingredients = step.ingredients @@ ingredient }
+    
+    // по-русски
+    [<CustomOperation("шаг")>]    member x.Step_ru (a, b) = x.Step (a, b)  
+    [<CustomOperation("время")>]  member x.Time_ru (a, b, c) = x.Time (a, b, c)  
+    [<CustomOperation("работа")>]  member x.WorkTime_ru (a, b, c) = x.WorkTime (a, b, c)  
+    [<CustomOperation("состав")>] member x.Ingredient_ru (a, b,c,d) = x.Ingredient (a, b, c, d)  
+
+
+// Recipe Builder --------
 
 type RecipeBuilder() =
+
+    let _sb = StepBuilder()
 
     member __.Yield(()) : Dish =
         { name = ""
@@ -80,30 +119,45 @@ type RecipeBuilder() =
         
     [<CustomOperation("step")>]
     member __.Step (dish, description) =
-        let step = { duration = TimeSpan.Zero; description = description; ingredients = [] }
+        let step = _sb.Step(_sb.Yield(), description )
+        { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
+        
+    [<CustomOperation("step'")>]
+    member __.Step' (dish, step) =
         { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
         
     [<CustomOperation("time")>]
     member __.Time (dish, time, unit) =
         let step = dish |> lastStep
-        let step' = { step with duration = toTime time unit }
-        { dish with recipe = { dish.recipe with steps = dish.recipe.steps -@ step' } }
+        let step' = _sb.Time(step, time, unit)
+        dish |> updateStep step'
+
+    [<CustomOperation("work_time")>]
+    member __.WorkTime (dish, time, unit) =
+        let step = dish |> lastStep
+        let step' = _sb.WorkTime(step, time, unit)
+        dish |> updateStep step'
 
     [<CustomOperation("ingredient")>]
     member __.Ingredient (dish, product, quantity, unit) =
-        let ingredient = Only {product = Whole product; quantity = toQuantity quantity unit}
         let step = dish |> lastStep
-        let step' = { step with ingredients = step.ingredients @@ ingredient }
-        dish |> replaceLastStep step'
+        let step' = _sb.Ingredient(step, product, quantity, unit)
+        dish |> updateStep step'
     
     // по-русски
-    [<CustomOperation("рецепт")>] member x.Dish_ru (dish, name) = x.Dish(dish, name)
-    [<CustomOperation("шаг")>]    member x.Step_ru (dish, description) = x.Step (dish, description)  
-    [<CustomOperation("время")>]  member x.Time_ru (dish, time, u) = x.Time (dish, time, u)  
-    [<CustomOperation("состав")>] member x.Ingredient_ru (dish, p,q,u) = x.Ingredient (dish, p, q,u)  
+    [<CustomOperation("блюдо")>]    member x.Dish_ru (dish, name) = x.Dish(dish, name)
+    [<CustomOperation("шаг")>]      member x.Step_ru (dish, description) = x.Step (dish, description)  
+    [<CustomOperation("шаг'")>]     member x.Step'_ru (dish, step) = x.Step' (dish, step)  
+    [<CustomOperation("время")>]    member x.Time_ru (dish, time, u) = x.Time (dish, time, u)  
+    [<CustomOperation("работа")>]   member x.WorkTime_ru (dish, time, u) = x.WorkTime (dish, time, u)  
+    [<CustomOperation("состав")>]   member x.Ingredient_ru (dish, p,q,u) = x.Ingredient (dish, p, q,u)  
         
         
+        
+// Workflows
 let recipe = RecipeBuilder()
+let step = StepBuilder()
 
-        
-
+// по-русски
+let рецепт = recipe
+let шаг = step

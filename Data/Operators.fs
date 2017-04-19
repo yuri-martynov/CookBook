@@ -16,14 +16,3 @@ let (&&&) (i1: Ingredient) (i2: Ingredient) =
 
 let (^^^) (i1: Ingredient) (i2: Ingredient) =
     Xor (seq { yield i1; yield i2 })
-
-// steps
-let (++) (mins: int) (description: string) : Step =
-    { duration = TimeSpan.FromMinutes (float mins)
-    ; action = Cook description
-    }
-
-let (--) (mins: int) (description: string) : Step =
-    { duration = TimeSpan.FromMinutes (float mins)
-    ; action = Background description
-    }

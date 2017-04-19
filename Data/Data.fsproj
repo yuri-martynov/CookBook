@@ -59,8 +59,6 @@
     <Compile Include="Products\Liquids.fs" />
     <Compile Include="Products\Фрукты.fs" />
     <Compile Include="Dishes\Soups.fs" />
-    <Compile Include="Dishes\Основные блюда\Плов.fs" />
-    <Compile Include="Dishes\Основные блюда\Основные блюда.fs" />
     <Compile Include="DishDataAccess.fs" />
   </ItemGroup>
   <ItemGroup>

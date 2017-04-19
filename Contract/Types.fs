@@ -31,6 +31,7 @@ type Ingredient =
 
 type Step =
     { duration: TimeSpan
+    ; workTime: TimeSpan
     ; description: string
     ; ingredients: Ingredient seq
     }
