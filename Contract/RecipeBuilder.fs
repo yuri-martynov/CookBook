@@ -36,7 +36,7 @@ let private toTime value unit =
     | Hour -> v |> TimeSpan.FromHours
     
 let [minute; minutes; минута; минуты; минут ] = Minute |> List.replicate 5 
-let [hour; hours; час; часа; часов ] = Minute |> List.replicate 5 
+let [hour; hours; час; часа; часов ] = Hour |> List.replicate 5 
 
 // Quantity ------------------------
 
@@ -53,7 +53,7 @@ type QuantityUnit =
 let [kg; кг] = Kg |> List.replicate 2
 let [gram; г] = Gram |> List.replicate 2
 let [liter; liters; литр; литра; литров] = Liter |> List.replicate 5
-let [table_spoon; table_spoons; столовой_ложки; столовая_ложка; столовые_ложки; столовых_ложек] = Liter |> List.replicate 6
+let [table_spoon; table_spoons; столовой_ложки; столовая_ложка; столовые_ложки; столовых_ложек] = TableSpoon |> List.replicate 6
 let [item; items; шт] = Item |> List.replicate 3
 
 let private toQuantity value unit : Quantity =
