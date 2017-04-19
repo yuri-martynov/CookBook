@@ -54,7 +54,7 @@ let [kg; кг] = Kg |> List.replicate 2
 let [gram; г] = Gram |> List.replicate 2
 let [liter; liters; литр; литра; литров] = Liter |> List.replicate 5
 let [table_spoon; table_spoons; столовой_ложки; столовая_ложка; столовые_ложки; столовых_ложек] = Liter |> List.replicate 6
-let [item; items; шт] = Liter |> List.replicate 3
+let [item; items; шт] = Item |> List.replicate 3
 
 let private toQuantity value unit : Quantity =
     match unit with
