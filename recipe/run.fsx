@@ -62,7 +62,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
 
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
-            log.Info(jsonContent.ToString())
+            log.Info(recipe.ToString())
             let! answer' =  answer recipe.result
             return req.CreateResponse(HttpStatusCode.OK, 
                 { displayText = "From webhook"; speech = answer' })
