@@ -61,7 +61,11 @@ let duration (x: TimeSpan) =
 
 
 let step (x: Step) =
-    x.description + " - " + (x.duration |> duration)
+    match x with
+    | Manual x ->
+        x.description + " - " + (x.duration |> duration)
+    | Process x -> 
+        sprintf "%s %s - %s" x.action x.item (x.duration |> duration)
 
 
 

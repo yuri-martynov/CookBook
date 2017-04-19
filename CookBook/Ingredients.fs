@@ -6,9 +6,9 @@ let get (getDishById: getDishById) id : Async<string> =
     
     async {
         let! dish = getDishById id
-        return dish.recipe.steps
-            |> Seq.collect (fun s -> s.ingredients) 
+        return dish
+            |> Utils.ingredients 
             |> Seq.map Format.ingredient
-            |> Format.list "<br/>"
+            |> Format.list ". "
     }
 

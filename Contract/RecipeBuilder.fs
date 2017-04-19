@@ -72,33 +72,28 @@ let private toQuantity value unit : Quantity =
 type StepBuilder() =
 
     member __.Yield(()) : Step =
-        { description = null
-        ; duration = TimeSpan.Zero
-        ; workTime = TimeSpan.FromSeconds 15.0
-        ; ingredients = Seq.empty
-        }
+        Manual
+            { description = null
+            ; duration = TimeSpan.Zero
+            ; ingredients = Seq.empty
+            }
         
     [<CustomOperation("step")>]
-    member __.Step (step, description) =
-        { step with description = description }
+    member __.Step (Manual step, description) =
+        Manual { step with description = description }
 
     [<CustomOperation("time")>]
-    member __.Time (step, time, unit) =
-        { step with duration = toTime time unit }
-        
-    [<CustomOperation("work_time")>]
-    member __.WorkTime (step, time, unit) =
-        { step with workTime = toTime time unit }
+    member __.Time (Manual step, time, unit) =
+        Manual { step with duration = toTime time unit }
         
     [<CustomOperation("ingredient")>]
-    member __.Ingredient (step, product, quantity, unit) =
+    member __.Ingredient (Manual step, product, quantity, unit) =
         let ingredient = Only {product = Whole product; quantity = toQuantity quantity unit}
-        { step with ingredients = step.ingredients @@ ingredient }
+        Manual { step with ingredients = step.ingredients @@ ingredient }
     
     // по-русски
     [<CustomOperation("шаг")>]    member x.Step_ru (a, b) = x.Step (a, b)  
     [<CustomOperation("время")>]  member x.Time_ru (a, b, c) = x.Time (a, b, c)  
-    [<CustomOperation("работа")>]  member x.WorkTime_ru (a, b, c) = x.WorkTime (a, b, c)  
     [<CustomOperation("состав")>] member x.Ingredient_ru (a, b,c,d) = x.Ingredient (a, b, c, d)  
 
 
@@ -123,19 +118,13 @@ type RecipeBuilder() =
         { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
         
     [<CustomOperation("step'")>]
-    member __.Step' (dish, step) =
-        { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
+    member __.Step' (dish, steps) =
+        { dish with recipe = { dish.recipe with steps = (dish.recipe.steps |> Seq.toList) @ steps } }
         
     [<CustomOperation("time")>]
     member __.Time (dish, time, unit) =
         let step = dish |> lastStep
         let step' = _sb.Time(step, time, unit)
-        dish |> updateStep step'
-
-    [<CustomOperation("work_time")>]
-    member __.WorkTime (dish, time, unit) =
-        let step = dish |> lastStep
-        let step' = _sb.WorkTime(step, time, unit)
         dish |> updateStep step'
 
     [<CustomOperation("ingredient")>]
@@ -149,7 +138,6 @@ type RecipeBuilder() =
     [<CustomOperation("шаг")>]      member x.Step_ru (dish, description) = x.Step (dish, description)  
     [<CustomOperation("шаг'")>]     member x.Step'_ru (dish, step) = x.Step' (dish, step)  
     [<CustomOperation("время")>]    member x.Time_ru (dish, time, u) = x.Time (dish, time, u)  
-    [<CustomOperation("работа")>]   member x.WorkTime_ru (dish, time, u) = x.WorkTime (dish, time, u)  
     [<CustomOperation("состав")>]   member x.Ingredient_ru (dish, p,q,u) = x.Ingredient (dish, p, q,u)  
         
         

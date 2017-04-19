@@ -5,7 +5,7 @@ open Types
 
 let get' (dish : Dish) : TimeSpan =
     dish.recipe.steps 
-    |> Seq.map (fun s -> s.duration)
+    |> Seq.map Utils.duration
     |> Seq.fold (+) TimeSpan.Zero
 
 let get (getDishById: getDishById) dishId : Async<string> = async {

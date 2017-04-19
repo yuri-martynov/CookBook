@@ -28,14 +28,22 @@ type Ingredient =
     | And of Ingredient seq
 
 
-
-type Step =
+type ManualStep =
     { duration: TimeSpan
-    ; workTime: TimeSpan
     ; description: string
     ; ingredients: Ingredient seq
     }
 
+type ProcessStep =
+    { duration: TimeSpan
+    ; action: string
+    ; item: string
+    }
+
+type Step =
+    | Manual of ManualStep
+    | Process of ProcessStep
+    
 type Recipe =
     { steps: Step seq
     }
