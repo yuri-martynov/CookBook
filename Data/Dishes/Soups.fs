@@ -107,4 +107,4 @@ module Soups =
         состав  "зелень"    1 шт
     }
     
-    let soups = [борщ]
+    let soups = [борщ; щи]

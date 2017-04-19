@@ -57,10 +57,9 @@ let private answer (result: Result) : Async<string> =
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     async {
-
-
-        log.Info("Webhook was triggered++")
+        log.Info("Webhook was triggered")
         let! jsonContent = req.Content.ReadAsStringAsync() |> Async.AwaitTask
+		log.Info(jsonContent.ToString())
 
         try
             let recipe = JsonConvert.DeserializeObject<RecipeRequest>(jsonContent)
@@ -68,7 +67,7 @@ let Run(req: HttpRequestMessage, log: TraceWriter) =
             return req.CreateResponse(HttpStatusCode.OK, 
                 { displayText = "From webhook"; speech = answer' })
         with e ->
-            log.Info(e.ToString())
+            log.Error(e.ToString())
             return req.CreateResponse(HttpStatusCode.BadRequest)
 
     } |> Async.StartAsTask
