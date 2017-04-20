@@ -57,6 +57,12 @@
       <Project>{a5e3cbe4-10d8-41f0-9327-1ff9a45215a2}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.1.12\lib\net45\FSharp.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -80,5 +86,8 @@
     <Compile Include="Dishes\Soups\Рассольник.fs" />
     <Compile Include="Dishes\Soups\Soups.fs" />
     <Compile Include="DishDataAccess.fs" />
+    <None Include="packages.config" />
+    <None Include="any\netstandard1.6\FSharp.Core.sigdata" />
+    <None Include="any\netstandard1.6\FSharp.Core.optdata" />
   </ItemGroup>
 </Project>
