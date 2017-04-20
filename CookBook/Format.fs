@@ -5,7 +5,7 @@ open Types
 
 let private dimension (half, one, two, five) (x: float)  =
     match x with
-    |0.25 -> "четверть" + half
+    |0.25 -> "четверть " + two
     |0.5 -> "пол" + half
     |1.0 -> "1 " + one
     |s when s > 1.0 && s < 5.0 -> sprintf "%.2f %s" s two
