@@ -36,8 +36,7 @@ type ManualStep =
 
 type ProcessStep =
     { duration: TimeSpan
-    ; action: string
-    ; item: string
+    ; description: string
     }
 
 type Step =

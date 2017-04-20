@@ -11,7 +11,8 @@ let private dimension (half, one, two, five) (x: float)  =
     |s -> s.ToString() + " " + five
 
 let private items = dimension ("штуки" ,"штука", "штуки" ,"штук")
-let private tableSpoons = dimension (" столовой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
+let private tableSpoons = dimension ("cстоловой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
+let private teaSpoons = dimension (" чайной ложки", "чайная ложка", "чайных ложки" ,"чайных ложек")
 let private liters = dimension ("-литра","литр","литра","литров")
 let private grams = dimension ("грамма", "грамм","грамма","граммов")
 let private seconds = dimension ("секунды", "секунду", "секунды", "секунд")
@@ -26,6 +27,7 @@ let quantity (x : Quantity) =
     match x with
     |Items x -> x |> items
     |TableSpoons x -> x |> tableSpoons
+    |TeaSpoons x -> x |> teaSpoons
     |Liters x -> x |> liters
     |Grams x -> float x |> grams
     |Glasses x -> x |> glasses
@@ -65,7 +67,7 @@ let step (x: Step) =
     | Manual x ->
         x.description + " - " + (x.duration |> duration)
     | Process x -> 
-        sprintf "%s %s - %s" x.action x.item (x.duration |> duration)
+        sprintf "%s - %s" x.description (x.duration |> duration)
 
 
 

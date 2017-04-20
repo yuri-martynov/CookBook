@@ -20,8 +20,7 @@
     <OutputPath>..\recipe\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,25 +48,7 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Operators.fs" />
-    <Compile Include="Duration.fs" />
-    <Compile Include="Products\Spices.fs" />
-    <Compile Include="Products\Meat.fs" />
-    <Compile Include="Products\Vegetables.fs" />
-    <Compile Include="Products\Cereals.fs" />
-    <Compile Include="Products\Liquids.fs" />
-    <Compile Include="Products\Фрукты.fs" />
-    <Compile Include="Dishes\Soups.fs" />
-    <Compile Include="DishDataAccess.fs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core">
-      <Name>FSharp.Core</Name>
-      <AssemblyName>FSharp.Core.dll</AssemblyName>
-      <HintPath>$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\FSharp\.NETFramework\v4.0\$(TargetFSharpCoreVersion)\FSharp.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -84,4 +65,20 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Operators.fs" />
+    <Compile Include="Duration.fs" />
+    <Compile Include="Products\Spices.fs" />
+    <Compile Include="Products\Meat.fs" />
+    <Compile Include="Products\Vegetables.fs" />
+    <Compile Include="Products\Cereals.fs" />
+    <Compile Include="Products\Liquids.fs" />
+    <Compile Include="Dishes\Soups\SoupBuilder.fs" />
+    <Compile Include="Dishes\Soups\Борщ.fs" />
+    <Compile Include="Dishes\Soups\Щи.fs" />
+    <Compile Include="Dishes\Soups\Рассольник.fs" />
+    <Compile Include="Dishes\Soups\Soups.fs" />
+    <Compile Include="DishDataAccess.fs" />
+  </ItemGroup>
 </Project>

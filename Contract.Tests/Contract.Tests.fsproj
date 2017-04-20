@@ -47,18 +47,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RecipeBuilderTests.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="any\netstandard1.6\FSharp.Core.sigdata" />
-    <None Include="any\netstandard1.6\FSharp.Core.optdata" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Contract\Contract.fsproj">
       <Project>{A5E3CBE4-10D8-41F0-9327-1FF9A45215A2}</Project>
       <Name>Contract</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RecipeBuilderTests.fs" />
+    <None Include="packages.config" />
+    <None Include="any\netstandard1.6\FSharp.Core.sigdata" />
+    <None Include="any\netstandard1.6\FSharp.Core.optdata" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>
