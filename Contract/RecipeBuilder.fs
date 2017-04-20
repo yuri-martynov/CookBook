@@ -57,10 +57,10 @@ let (table_spoon, table_spoons, ст_л) = (TableSpoon, TableSpoon, TableSpoon)
 let (item, items, шт) = (Item, Item, Item) 
 let (glass, glasses, стакан, стакана) = (Glass, Glass, Glass, Glass) 
 
-let private toQuantity value unit : Quantity =
+let private toQuantity (value: obj) unit : Quantity =
     match unit with
     | Item -> Items (toType<float> value)
-    | Kg -> Grams ((toType<int> value) * 1000)
+    | Kg -> Grams (int ((toType<float> value) * 1000.0))
     | Gram -> Grams (toType<int> value)
     | Liter -> Liters (toType<float> value)
     | Glass -> Glasses (toType<float> value)
