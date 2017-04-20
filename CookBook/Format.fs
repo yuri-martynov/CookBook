@@ -8,8 +8,8 @@ let private dimension (half, one, two, five) (x: float)  =
     |0.25 -> "четверть " + two
     |0.5 -> "пол" + half
     |1.0 -> "1 " + one
-    |s when s > 1.0 && s < 5.0 -> sprintf "%.2f %s" s two
-    |s -> sprintf "%.1f %s" s five
+    |s when s > 1.0 && s < 5.0 -> sprintf "%s %s" (s.ToString("0.#")) two
+    |s -> sprintf "%s %s" (s.ToString("0.#")) five
 
 let private items = dimension ("штуки" ,"штука", "штуки" ,"штук")
 let private tableSpoons = dimension ("cстоловой ложки", "столовая ложка", "столовых ложки" ,"столовых ложек")
