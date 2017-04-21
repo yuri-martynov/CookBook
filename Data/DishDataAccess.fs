@@ -8,7 +8,7 @@ let private all p s =
     not <| Seq.exists (not << p) s 
 
 let private dishes = 
-    soups 
+    soups @ deserts
 
 let private dict : Map<string, Dish> = 
     dishes  
@@ -18,10 +18,7 @@ let private dict : Map<string, Dish> =
 let getById id = 
     dict |> Map.find id
 
-
-
 let getByIngredients (productNames: seq<string>) : seq<string> =
     dishes
     |> Seq.filter (fun d -> productNames |> all (fun p -> d |> Utils.ingredients |> Seq.collect Utils.products |> Seq.map (fun i -> Utils.productName i.product ) |> Seq.contains p))
     |> Seq.map (fun d -> d.name)
-

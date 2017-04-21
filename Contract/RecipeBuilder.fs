@@ -129,6 +129,18 @@ type RecipeBuilder() =
 
     member __.Step (dish, steps : Step list) =
         { dish with recipe = { dish.recipe with steps = (dish.recipe.steps |> Seq.toList) @ steps } }
+
+    [<CustomOperation("add")>]
+    member __.Add(dish, product, q, u) =
+        let step = 
+            Manual 
+                { description = "добавить " + (product |> Utils.productName)
+                ; duration = TimeSpan.FromSeconds 10.0 
+                ; ingredients = [ Only {product = product; quantity = toQuantity q u }]
+                }
+        { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
+
+        
         
     [<CustomOperation("time")>]
     member __.Time (dish, time, unit) =
@@ -160,6 +172,7 @@ type RecipeBuilder() =
     [<CustomOperation("состав")>]   member x.Ingredient_ru (dish, p,q,u) = x.Ingredient (dish, p, q,u)  
     [<CustomOperation("процесс")>]  member x.Process_ru (dish, p,q,u) = x.Process (dish, p, q,u)  
     [<CustomOperation("по_вкусу")>] member x.ToTaste_ru (a, b) = x.ToTaste (a, b)  
+    [<CustomOperation("добавить")>] member x.Add_ru (a, b,c,d) = x.Add (a, b,c,d)  
         
         
         

@@ -1,39 +1,78 @@
-﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <Name>Data</Name>
+    <AssemblyName>Data</AssemblyName>
+    <RootNamespace>Data</RootNamespace>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>c23988a6-f8ea-4798-b42c-360ef24831b2</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Data</RootNamespace>
-    <AssemblyName>Data</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>Data</Name>
+    <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
     <OutputPath>..\recipe\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>PdbOnly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\$(Configuration)\$(AssemblyName).XML</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
-  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.1.12\lib\net45\FSharp.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Contract\Contract.fsproj">
+      <Name>Contract</Name>
+      <Project>{a5e3cbe4-10d8-41f0-9327-1ff9a45215a2}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Operators.fs" />
+    <Compile Include="Duration.fs" />
+    <Compile Include="Products/Spices.fs" />
+    <Compile Include="Products/Meat.fs" />
+    <Compile Include="Products/Vegetables.fs" />
+    <Compile Include="Products/Cereals.fs" />
+    <Compile Include="Products/Liquids.fs" />
+    <Compile Include="Products/Diary.fs" />
+    <Compile Include="Products/Flour.fs" />
+    <Compile Include="Products/Fruits.fs" />
+    <Compile Include="Dishes/Soups/SoupBuilder.fs" />
+    <Compile Include="Dishes/Soups/Борщ.fs" />
+    <Compile Include="Dishes/Soups/Щи.fs" />
+    <Compile Include="Dishes/Soups/Рассольник.fs" />
+    <Compile Include="Dishes/Soups/Soups.fs" />
+    <Compile Include="Dishes/Pastery/Маффины.fs" />
+    <Compile Include="Dishes/Pastery/Pastery.fs" />
+    <Compile Include="DishDataAccess.fs" />
+    <None Include="packages.config" />
+    <None Include="any/netstandard1.6/FSharp.Core.sigdata" />
+    <None Include="any/netstandard1.6/FSharp.Core.optdata" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">
       <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')">
@@ -47,47 +86,4 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <ProjectReference Include="..\Contract\Contract.fsproj">
-      <Name>Contract</Name>
-      <Project>{a5e3cbe4-10d8-41f0-9327-1ff9a45215a2}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <Reference Include="System.ValueTuple">
-      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.4.1.12\lib\net45\FSharp.Core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Operators.fs" />
-    <Compile Include="Duration.fs" />
-    <Compile Include="Products\Spices.fs" />
-    <Compile Include="Products\Meat.fs" />
-    <Compile Include="Products\Vegetables.fs" />
-    <Compile Include="Products\Cereals.fs" />
-    <Compile Include="Products\Liquids.fs" />
-    <Compile Include="Dishes\Soups\SoupBuilder.fs" />
-    <Compile Include="Dishes\Soups\Борщ.fs" />
-    <Compile Include="Dishes\Soups\Щи.fs" />
-    <Compile Include="Dishes\Soups\Рассольник.fs" />
-    <Compile Include="Dishes\Soups\Soups.fs" />
-    <Compile Include="DishDataAccess.fs" />
-    <None Include="packages.config" />
-    <None Include="any\netstandard1.6\FSharp.Core.sigdata" />
-    <None Include="any\netstandard1.6\FSharp.Core.optdata" />
-  </ItemGroup>
 </Project>

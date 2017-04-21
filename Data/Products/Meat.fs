@@ -7,3 +7,5 @@ module GlobalMeat =
     let мясо = Whole "мясо"
     let печень = Whole "печень"
     let баранина = Whole "баранина"
+
+    let яйцо = Whole "яйцо"
