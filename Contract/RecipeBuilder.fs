@@ -35,6 +35,7 @@ let private toTime value unit =
     | Minute -> v |> TimeSpan.FromMinutes
     | Hour -> v |> TimeSpan.FromHours
     
+let (sec, сек ) = (Second, Second) 
 let (minute, minutes, мин ) = (Minute, Minute, Minute) 
 let (hour, hours, ч) = (Hour, Hour, Hour) 
 

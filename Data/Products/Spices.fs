@@ -15,3 +15,7 @@ module GlobalSpices =
     let сахар = Whole "сахар"
 
     let разрыхлитель = Whole "разрыхлитель"
+
+    let тимьян = Whole "тимьян"
+
+    

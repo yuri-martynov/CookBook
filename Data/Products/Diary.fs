@@ -9,3 +9,6 @@ module GlobalDiary =
     let сметана = Whole "сметана"
     let молоко = Whole "молоко"
     let творог =  Whole "творог"
+
+    let сыр = Whole "сыр"
+    

@@ -67,6 +67,8 @@
     <Compile Include="Dishes/Soups/Soups.fs" />
     <Compile Include="Dishes/Pastery/Маффины.fs" />
     <Compile Include="Dishes/Pastery/Pastery.fs" />
+    <Compile Include="Dishes/Main/Рататуй.fs" />
+    <Compile Include="Dishes/Main/Main.fs" />
     <Compile Include="DishDataAccess.fs" />
     <None Include="packages.config" />
     <None Include="any/netstandard1.6/FSharp.Core.sigdata" />

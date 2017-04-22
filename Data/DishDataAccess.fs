@@ -8,7 +8,7 @@ let private all p s =
     not <| Seq.exists (not << p) s 
 
 let private dishes = 
-    soups @ deserts
+    soups @ deserts @ mainCourses
 
 let private dict : Map<string, Dish> = 
     dishes  
