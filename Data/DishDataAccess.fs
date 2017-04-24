@@ -23,5 +23,5 @@ let getById id =
 
 let getByIngredients (productNames: seq<string>) : seq<string> =
     dishes
-    |> Seq.filter (fun d -> productNames |> all (fun p -> d |> Utils.ingredients |> Seq.collect Utils.products |> Seq.map (fun i -> Utils.productName i.product ) |> Seq.contains p))
+    |> Seq.filter (fun d -> productNames |> all (fun p -> d |> Utils.ingredients |> Seq.collect Utils.productsQuantities |> Seq.map (fun i -> Utils.productName i.product ) |> Seq.contains p))
     |> Seq.map (fun d -> d.name)

@@ -3,7 +3,7 @@
 open Types
 
 let private extractNames : (Ingredient -> seq<string>) =
-    Utils.products 
+    Utils.productsQuantities 
     >> Seq.map (fun pq -> pq.product |> Utils.productName)
 
 let get (getDishById: getDishById) dishId (productNames: seq<string>) = async {
