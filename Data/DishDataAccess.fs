@@ -7,8 +7,11 @@ open Dishes
 let private all p s =
     not <| Seq.exists (not << p) s 
 
-let private dishes = 
-    soups @ deserts @ mainCourses
+let private dishes : Dish list = 
+    [ борщ; щи; рассольник
+    ; рататуй
+    ; маффин
+    ]
 
 let private dict : Map<string, Dish> = 
     dishes  

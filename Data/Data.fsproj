@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Name>Data</Name>
@@ -52,23 +52,9 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Operators.fs" />
     <Compile Include="Duration.fs" />
-    <Compile Include="Products/Spices.fs" />
-    <Compile Include="Products/Meat.fs" />
-    <Compile Include="Products/Vegetables.fs" />
-    <Compile Include="Products/Cereals.fs" />
-    <Compile Include="Products/Liquids.fs" />
-    <Compile Include="Products/Diary.fs" />
-    <Compile Include="Products/Flour.fs" />
-    <Compile Include="Products/Fruits.fs" />
-    <Compile Include="Dishes/Soups/SoupBuilder.fs" />
-    <Compile Include="Dishes/Soups/Борщ.fs" />
-    <Compile Include="Dishes/Soups/Щи.fs" />
-    <Compile Include="Dishes/Soups/Рассольник.fs" />
-    <Compile Include="Dishes/Soups/Soups.fs" />
-    <Compile Include="Dishes/Pastery/Маффины.fs" />
-    <Compile Include="Dishes/Pastery/Pastery.fs" />
-    <Compile Include="Dishes/Main/Рататуй.fs" />
-    <Compile Include="Dishes/Main/Main.fs" />
+    <Compile Include="Products/*.fs" />
+    <Compile Include="Builders/*.fs" />
+    <Compile Include="Dishes/**/*.fs" />
     <Compile Include="DishDataAccess.fs" />
     <None Include="packages.config" />
     <None Include="any/netstandard1.6/FSharp.Core.sigdata" />
