@@ -11,15 +11,14 @@ let private all p s =
 
 
 let letBindings<'t> (assembly: Assembly) : 't array =
-    let publicTypes = assembly.GetExportedTypes ()
-    let modules = publicTypes |> Array.filter FSharpType.IsModule
-    let members = modules |> Array.collect (fun m -> m.GetMembers ())
-
     let valueOfBinding (mi : MemberInfo) =
         let property = mi.Name
         mi.DeclaringType.GetProperty(property).GetValue null
 
-    members 
+    assembly.GetExportedTypes () 
+        |> Array.filter FSharpType.IsModule
+        |> Array.collect (fun m -> m.GetMembers ())
+        |> Array.filter (not << isNull)
         |> Array.map valueOfBinding 
         |> Array.choose (fun o ->  match o with
                                     | :? 't as x -> Some x
