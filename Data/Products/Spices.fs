@@ -17,5 +17,12 @@ module GlobalSpices =
     let разрыхлитель = Whole "разрыхлитель"
 
     let тимьян = Whole "тимьян"
+    let базилик = Whole "базилик"
+    let петрушка = Whole "петрушка"
+    let укроп = Whole "укроп"
+    let кинза = Whole "кинза"
+
+    let ``перец чили`` = Whole "перец чили"
+
 
     
