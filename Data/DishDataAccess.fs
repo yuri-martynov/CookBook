@@ -14,10 +14,16 @@ let letBindings<'t> (assembly: Assembly) : 't array =
     let valueOfBinding (mi : MemberInfo) =
         if mi |> isNull then None
         else
-            let property = mi.Name
-            match mi.DeclaringType.GetProperty(property).GetValue null with
-            | :? 't as x -> Some x
-            | _ -> None
+            let type' = mi.DeclaringType
+            if type' |> isNull then None
+            else
+                let name = mi.Name
+                let prop = type'.GetProperty name
+                if prop |> isNull then None
+                else
+                    match prop.GetValue null with
+                    | :? 't as x -> Some x
+                    | _ -> None
 
     assembly.GetExportedTypes () 
         |> Array.filter FSharpType.IsModule
