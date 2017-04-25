@@ -6,7 +6,7 @@ open RecipeBuilder
 [<AutoOpen>]
 module RatatuiGlobal =
 
-    do addDish (рецепт {
+    let рататуй = рецепт {
         блюдо "рататуй"
 
         шаг "овощи почистить и нарезать"
@@ -45,4 +45,4 @@ module RatatuiGlobal =
 
         шаг "при подаче добавить свежий сыр"
         состав сыр 100 г
-    })
+    }

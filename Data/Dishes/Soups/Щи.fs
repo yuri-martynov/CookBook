@@ -6,7 +6,7 @@ open RecipeBuilder
 [<AutoOpen>]
 module Soups2 =
 
-    do addDish (суп {
+    let щи = суп {
         блюдо   "щи из свежей капусты"
 
         ``мясной бульон``
@@ -31,4 +31,4 @@ module Soups2 =
         состав  зелень    1 шт
 
         по_вкусу перец
-    })
+    }

@@ -6,7 +6,7 @@ open RecipeBuilder
 [<AutoOpen>]
 module Soups1 =
 
-     do addDish (суп {
+    let борщ = суп {
         блюдо   "борщ"
 
         ``мясной бульон``
@@ -30,4 +30,4 @@ module Soups1 =
         время   1 мин
         состав  зелень    1 шт
         состав  чеснок    2 шт
-    })
+    }
