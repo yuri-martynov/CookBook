@@ -3,6 +3,7 @@ namespace Dishes
 open Products
 open RecipeBuilder
 
+[<AutoOpen>]
 module Deserts1 =
 
     do addDish ( рецепт {

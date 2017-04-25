@@ -3,6 +3,7 @@ namespace Dishes
 open Products
 open RecipeBuilder
 
+[<AutoOpen>]
 module RatatuiGlobal =
 
     do addDish (рецепт {

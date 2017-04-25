@@ -3,6 +3,7 @@
 open Products
 open RecipeBuilder
 
+[<AutoOpen>]
 module Soups1 =
 
      do addDish (суп {
