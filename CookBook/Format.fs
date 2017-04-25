@@ -24,15 +24,15 @@ let private glasses = dimension ("стакана", "стакан","стакан�
 let list (separator: string) (lst: seq<_>) : string =
     System.String.Join(separator, lst)
 
-let quantity (x : Quantity) =
-    match x with
-    |Items x -> x |> items
-    |TableSpoons x -> x |> tableSpoons
-    |TeaSpoons x -> x |> teaSpoons
-    |Liters x -> x |> liters
-    |Grams x -> float x |> grams
-    |Glasses x -> x |> glasses
-    |ToTaste -> "по вкусу"
+let quantity  = function 
+    | Value { value = x; unit = u } ->
+        match u with
+        |Items -> x |> items
+        |TableSpoons -> x |> tableSpoons
+        |Liters -> x |> liters
+        |Grams -> float x |> grams
+        |Glasses -> x |> glasses
+    | ToTaste -> "по вкусу"
 
 let rec private product (x: Product) : string =
     match x with

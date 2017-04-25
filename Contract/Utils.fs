@@ -8,8 +8,7 @@ let rec productsQuantities (ingredient: Ingredient) : ProductQuantity seq =
     | Optional p -> seq { yield p }
     | And ps | Xor ps -> 
         ps 
-        |> Seq.map productsQuantities
-        |> Seq.concat
+        |> Seq.collect productsQuantities
 
 let rec productName product =
     match product with
@@ -27,12 +26,11 @@ let sumQuantity (q : Quantity seq): Quantity =
         | [] -> acc
         | h ::rest ->
             match (h, acc) with
-            | (Grams x, Grams y) ->  x + y    |> Grams   |> sum' rest 
-            | (Glasses x, Glasses y) -> x + y |> Glasses |> sum' rest
-            | (Items x, Items y) -> x + y     |> Items   |> sum' rest
-            | (Liters x, Liters y) -> x + y   |> Liters  |> sum' rest
-            | (TeaSpoons x, TeaSpoons y) -> x + y |> TeaSpoons |> sum' rest
-            | (TableSpoons x, TableSpoons y) -> x + y |> TableSpoons |> sum' rest
+            | (Value x, Value y) when x.unit = y.unit ->  
+                { unit = x.unit
+                ; value = x.value + y.value 
+                } |> Value |> sum' rest 
+
             | (ToTaste, y) -> y
             | (x, ToTaste) -> x
             | _ -> failwith "can not sum up quantities"
@@ -43,11 +41,9 @@ let sumQuantity (q : Quantity seq): Quantity =
     
 let ingredients (dish : Dish) : Ingredient seq =
     dish.recipe.steps 
-    |> Seq.map stepIngredients
-    |> Seq.concat
-    |> Seq.map productsQuantities
-    |> Seq.concat
-    |> Seq.groupBy (fun pq -> pq.product) // by quantity type
+    |> Seq.collect stepIngredients
+    |> Seq.collect productsQuantities
+    |> Seq.groupBy (fun pq -> pq.product) 
     |> Seq.map (fun g -> Only {product = fst g; quantity = g |> snd |> Seq.map (fun pq -> pq.quantity) |> sumQuantity})
     
 let duration step = 

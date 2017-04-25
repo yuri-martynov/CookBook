@@ -1,16 +1,11 @@
 ﻿namespace Dishes
 
-open Types
-open System
-
 open Products
-
 open RecipeBuilder
 
-[<AutoOpen>]
 module Soups2 =
 
-    let щи = суп {
+    do addDish (суп {
         блюдо   "щи из свежей капусты"
 
         ``мясной бульон``
@@ -35,4 +30,4 @@ module Soups2 =
         состав  зелень    1 шт
 
         по_вкусу перец
-    }
+    })

@@ -2,15 +2,18 @@
 
 open System
 
+type Unit =
+    | Items 
+    | Grams 
+    | Liters
+    | Glasses 
+    | TableSpoons
+
+type ValueOfUnits = { value: float; unit: Unit }
+
 type Quantity =
-    | Items of float
-    | Grams of int
-    | Liters of float
-    | Glasses of float
-    | TeaSpoons of float
-    | TableSpoons of float
+    | Value of ValueOfUnits
     | ToTaste
-    
 
 type Product =
     | Whole of string

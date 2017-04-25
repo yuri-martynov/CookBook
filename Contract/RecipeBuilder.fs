@@ -41,33 +41,23 @@ let (hour, hours, ч) = (Hour, Hour, Hour)
 
 // Quantity ------------------------
 
-type QuantityUnit =
-    | Item
+type RecipeBuilderUnit =
+    | Unit of Unit
     | Kg
-    | Gram
-    | Liter
-    | Glass
-    | TeeSpoon
-    | TableSpoon
-    | Taste
+    | TeaSpoon
     
 let (kg, кг) = (Kg, Kg)
-let (g, г) = (Gram, Gram)
-let (liter, liters, л) = (Liter, Liter, Liter) 
-let (table_spoon, table_spoons, ст_л) = (TableSpoon, TableSpoon, TableSpoon) 
-let (item, items, шт) = (Item, Item, Item) 
-let (glass, glasses, стакан, стакана) = (Glass, Glass, Glass, Glass) 
+let (g, г) = (Unit Grams, Unit Grams)
+let (liter, liters, л) = (Unit Liters, Unit Liters, Unit Liters) 
+let (table_spoon, table_spoons, ст_л) = (Unit TableSpoons, Unit TableSpoons, Unit TableSpoons) 
+let (item, items, шт) = (Unit Items, Unit Items, Unit Items) 
+let (glass, glasses, стакан, стакана) = (Unit Glasses, Unit Glasses, Unit Glasses, Unit Glasses) 
 
-let private toQuantity (value: obj) unit : Quantity =
+let private toQuantity (value: obj) (unit: RecipeBuilderUnit) : Quantity =
     match unit with
-    | Item -> Items (toType<float> value)
-    | Kg -> Grams (int ((toType<float> value) * 1000.0))
-    | Gram -> Grams (toType<int> value)
-    | Liter -> Liters (toType<float> value)
-    | Glass -> Glasses (toType<float> value)
-    | TeeSpoon -> TeaSpoons (toType<float> value)
-    | TableSpoon -> TableSpoons (toType<float> value)
-    | Taste -> ToTaste
+    | Unit u -> Value { value = value |> toType<float> ; unit = u}
+    | Kg -> Value { value =  (toType<float> value) * 1000.0; unit = Grams }
+    | TeaSpoon -> Value { value =  (toType<float> value) * 3.0; unit = TableSpoons }
 
 // Step Builder --------------------------
 

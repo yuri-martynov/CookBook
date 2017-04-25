@@ -1,16 +1,11 @@
 ﻿namespace Dishes
 
-open Types
-open System
-
 open Products
-
 open RecipeBuilder
 
-[<AutoOpen>]
 module Soups3 =
 
-    let рассольник = суп {
+    do addDish ( суп {
         блюдо   "рассольник"
 
         шаг "нарезать мясо и поставить варить"
@@ -49,4 +44,4 @@ module Soups3 =
         по_вкусу перец
         состав ``лавровый лист`` 1 шт
         варить 5 мин
-    }
+    })

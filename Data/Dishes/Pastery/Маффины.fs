@@ -1,16 +1,11 @@
 namespace Dishes
 
-open Types
-open System
-
 open Products
-
 open RecipeBuilder
 
-[<AutoOpen>]
 module Deserts1 =
 
-    let маффин = рецепт {
+    do addDish ( рецепт {
         блюдо "маффин"
 
         шаг "яйца растереть с сахаром"
@@ -41,4 +36,4 @@ module Deserts1 =
         процесс "выпекайте в духовке при 180 град" 15 мин
 
         шаг "готовые маффины полить соком лимона"
-    }
+    })
