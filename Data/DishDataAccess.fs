@@ -12,17 +12,18 @@ let private all p s =
 
 let letBindings<'t> (assembly: Assembly) : 't array =
     let valueOfBinding (mi : MemberInfo) =
-        let property = mi.Name
-        mi.DeclaringType.GetProperty(property).GetValue null
+        match mi with
+        | null -> None
+        | _ ->
+            let property = mi.Name
+            match mi.DeclaringType.GetProperty(property).GetValue null with
+            | :? 't as x -> Some x
+            | _ -> None
 
     assembly.GetExportedTypes () 
         |> Array.filter FSharpType.IsModule
         |> Array.collect (fun m -> m.GetMembers ())
-        |> Array.filter (not << isNull)
-        |> Array.map valueOfBinding 
-        |> Array.choose (fun o ->  match o with
-                                    | :? 't as x -> Some x
-                                    | _ -> None)
+        |> Array.choose valueOfBinding
 
 
 let private dishes : Dish array = 
