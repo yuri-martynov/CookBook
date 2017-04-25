@@ -12,9 +12,8 @@ let private all p s =
 
 let letBindings<'t> (assembly: Assembly) : 't array =
     let valueOfBinding (mi : MemberInfo) =
-        match mi with
-        | null -> None
-        | _ ->
+        if mi |> isNull then None
+        else
             let property = mi.Name
             match mi.DeclaringType.GetProperty(property).GetValue null with
             | :? 't as x -> Some x
@@ -26,12 +25,12 @@ let letBindings<'t> (assembly: Assembly) : 't array =
         |> Array.choose valueOfBinding
 
 
-let private dishes () : Dish array = 
+let private dishes : Dish array = 
     let assembly = typeof<Data.AssemblyInfo.MarkerType>.Assembly
     assembly |> letBindings<Dish> 
 
 let private dict : Map<string, Dish> = 
-    dishes()  
+    dishes
     |> Seq.map (fun d -> (d.name, d))
     |> Map.ofSeq
 
@@ -39,6 +38,6 @@ let getById id =
     dict |> Map.find id
 
 let getByIngredients (productNames: seq<string>) : seq<string> =
-    dishes()
+    dishes
     |> Seq.filter (fun d -> productNames |> all (fun p -> d |> Utils.ingredients |> Seq.collect Utils.productsQuantities |> Seq.map (fun i -> Utils.productName i.product ) |> Seq.contains p))
     |> Seq.map (fun d -> d.name)
