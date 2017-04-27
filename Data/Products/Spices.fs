@@ -25,5 +25,5 @@ module GlobalSpices =
 
     let ``перец чили`` = Whole "перец чили"
 
-
+    let сироп = Whole "сироп"
     

@@ -15,4 +15,5 @@ module GlobalFruits =
 
 
     let клубника = Whole "клубника"
+    let персик = Whole "персик"
     
