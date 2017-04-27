@@ -32,19 +32,18 @@ type Ingredient =
 
 
 type ManualStep =
-    { duration: TimeSpan
-    ; description: string
-    ; ingredients: Ingredient seq
+    { ingredients: Ingredient seq
     }
 
-type ProcessStep =
-    { duration: TimeSpan
-    ; description: string
-    }
-
-type Step =
+type StepKind =
     | Manual of ManualStep
-    | Process of ProcessStep
+    | Process
+
+type Step = 
+    { duration: TimeSpan
+    ; description: string
+    ; kind: StepKind
+    }
     
 type Recipe =
     { steps: Step seq

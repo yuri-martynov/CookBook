@@ -6,7 +6,6 @@ csx
 .vs
 edge
 Publish
-.vscode
 
 **/bin/*.xml
 *.user

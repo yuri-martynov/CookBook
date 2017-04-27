@@ -49,7 +49,7 @@ let ingredient (x: Ingredient) =
     |Only x -> productQuantity x
     |Optional x -> "можно добавить " + productQuantity x
     |Xor xs -> xs |> many |> list " либо "
-    |And xs -> xs |> many |> list "<br/>"
+    |And xs -> xs |> many |> list ". "
 
 
 
@@ -62,13 +62,8 @@ let duration (x: TimeSpan) =
     | x -> x |> minutes
     
 
-
 let step (x: Step) =
-    match x with
-    | Manual x ->
-        x.description + " - " + (x.duration |> duration)
-    | Process x -> 
-        sprintf "%s - %s" x.description (x.duration |> duration)
+    x.description + " - " + (x.duration |> duration)
 
 
 

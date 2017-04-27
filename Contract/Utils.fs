@@ -16,7 +16,7 @@ let rec productName product =
     |Part (p,_) -> productName p
     
 let stepIngredients (step : Step) : Ingredient seq =
-    match step with
+    match step.kind with
     | Manual s -> s.ingredients
     | _ -> Seq.empty
 
@@ -47,6 +47,4 @@ let ingredients (dish : Dish) : Ingredient seq =
     |> Seq.map (fun g -> Only {product = fst g; quantity = g |> snd |> Seq.map (fun pq -> pq.quantity) |> sumQuantity})
     
 let duration step = 
-    match step with
-    | Manual s -> s.duration
-    | Process s -> s.duration
+    step.duration

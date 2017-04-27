@@ -20,6 +20,11 @@ let private updateStep step dish  =
 
 let private toType<'t> (o : obj) : 't =
     Convert.ChangeType(o, typeof<'t>) :?> 't
+
+let private addIngredient ingredient step =
+    match step.kind with
+    | Manual m -> { step with kind = Manual { m with ingredients = m.ingredients @@ ingredient } }
+    | _ -> failwith "can not add ingredient"
     
 // Time --------------------    
  
@@ -28,7 +33,7 @@ type TimeUnit =
     | Minute
     | Hour
     
-let private toTime value unit =
+let private toTime unit value =
     let v = value |> toType<float>
     match unit with
     | Second -> v |> TimeSpan.FromSeconds
@@ -64,29 +69,28 @@ let private toQuantity (value: obj) (unit: RecipeBuilderUnit) : Quantity =
 type ManualStepBuilder() =
 
     member __.Yield(()) : Step =
-        Manual
             { description = null
             ; duration = TimeSpan.FromSeconds 10.0
-            ; ingredients = Seq.empty
+            ; kind = Manual { ingredients = Seq.empty }
             }
         
     [<CustomOperation("step")>]
-    member __.Step (Manual step, description) =
-        Manual { step with description = description }
+    member __.Step (step, description) =
+        { step with description = description }
 
     [<CustomOperation("time")>]
-    member __.Time (Manual step, time, unit) =
-        Manual { step with duration = toTime time unit }
+    member __.Time (step, time, unit) =
+        { step with duration = time |> toTime unit }
         
     [<CustomOperation("ingredient")>]
-    member __.Ingredient (Manual step, product, quantity, unit) =
+    member __.Ingredient (step, product, quantity, unit) =
         let ingredient = Only {product =  product; quantity = toQuantity quantity unit}
-        Manual { step with ingredients = step.ingredients @@ ingredient }
+        step |> addIngredient ingredient
 
     [<CustomOperation("to_taste")>]
-    member __.ToTaste (Manual step, product) =
+    member __.ToTaste (step, product) =
         let ingredient = Only {product =  product; quantity = ToTaste }
-        Manual { step with ingredients = step.ingredients @@ ingredient }
+        step |> addIngredient ingredient
     
     // по-русски
     [<CustomOperation("шаг")>]    member x.Step_ru (a, b) = x.Step (a, b)  
@@ -124,14 +128,11 @@ type RecipeBuilder() =
     [<CustomOperation("add")>]
     member __.Add(dish, product, q, u) =
         let step = 
-            Manual 
                 { description = "добавить " + (product |> Utils.productName)
                 ; duration = TimeSpan.FromSeconds 10.0 
-                ; ingredients = [ Only {product = product; quantity = toQuantity q u }]
+                ; kind = Manual { ingredients = [ Only { product = product; quantity = toQuantity q u } ] }
                 }
         { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
-
-        
         
     [<CustomOperation("time")>]
     member __.Time (dish, time, unit) =
@@ -153,7 +154,7 @@ type RecipeBuilder() =
 
     [<CustomOperation("process")>]
     member __.Process (dish, description, time, unit) =
-        let step = Process { description = description; duration = toTime time unit }
+        let step = { description = description; duration = time |> toTime unit; kind = Process }
         { dish with recipe = { dish.recipe with steps = dish.recipe.steps @@ step } }
     
     // по-русски
