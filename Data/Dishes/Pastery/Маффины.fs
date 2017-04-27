@@ -3,8 +3,7 @@ namespace Dishes
 open Products
 open RecipeBuilder
 
-[<AutoOpen>]
-module Deserts1 =
+module Mafins =
 
     let маффин = рецепт {
         блюдо "маффин"

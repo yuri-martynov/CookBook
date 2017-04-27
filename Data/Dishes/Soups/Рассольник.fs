@@ -3,7 +3,6 @@
 open Products
 open RecipeBuilder
 
-[<AutoOpen>]
 module Soups3 =
 
     let рассольник = суп {

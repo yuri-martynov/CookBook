@@ -3,7 +3,6 @@ namespace Dishes
 open Products
 open RecipeBuilder
 
-[<AutoOpen>]
 module RatatuiGlobal =
 
     let рататуй = рецепт {
