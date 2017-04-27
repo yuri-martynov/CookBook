@@ -37,11 +37,11 @@ let private dishes : Dish array =
 
 let private dict : Map<string, Dish> = 
     dishes
-    |> Seq.map (fun d -> (d.name, d))
+    |> Seq.map (fun d -> (d.name.ToLowerInvariant(), d))
     |> Map.ofSeq
 
-let getById id = 
-    dict |> Map.find id
+let getById (id: string) = 
+    dict |> Map.find (id.ToLowerInvariant())
 
 let getByIngredients (productNames: seq<string>) : seq<string> =
     dishes
